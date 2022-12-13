@@ -9,10 +9,13 @@ export const Layout = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 74px 37px;
 
   background-color: #382e2d;
   background-image: url(${layoutBgMobile});
   background-size: cover;
+
+  overflow: hidden;
 
   /* Перевизначаємо шлях до 2x зображення,
     якщо щільність екрану мінімум 2 */
