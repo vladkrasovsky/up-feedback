@@ -15,10 +15,19 @@ export const Btn = styled.button`
 
   cursor: pointer;
 
+  transition: 200ms ease;
+  transition-property: background-color;
+
   @media screen and (min-width: 768px) {
     padding-bottom: 10px;
     padding-top: 10px;
     min-width: 187px;
     font-size: 18px;
+  }
+
+  :hover,
+  :focus,
+  :active {
+    background-color: #4b3f3d;
   }
 `;

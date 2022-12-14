@@ -1,50 +1,78 @@
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 import Button from 'components/Button';
-import { Label } from './Form.styled';
+import { Control } from './Form.styled';
 import shops from 'data/shops.json';
+import Rating from 'components/Rating';
 
 class FeedbackForm extends Component {
+  state = {
+    score: 0,
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
+    const { score } = this.state;
     const data = {};
+
+    if (score === 0) {
+      toast.error('Оцініть якість сервісу магазину!');
+      return;
+    }
 
     new FormData(form).forEach((value, name) => {
       data[name] = value;
     });
 
-    console.log(data);
-    form.reset();
+    data.score = score;
+
+    this.props.onSubmit(data);
+  };
+
+  handleRatingChange = score => {
+    this.setState({ score });
   };
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <Label>
+        <Control>
           <span>Оберіть фірмовий магазин, який бажаєте оцінити</span>
           <select name="shop" required>
-            <option value="">Оберіть магазин</option>
+            {/* <option value="">Оберіть магазин</option> */}
             {shops.map(({ id, name }) => (
               <option key={id} value={name}>
                 {name}
               </option>
             ))}
           </select>
-        </Label>
+        </Control>
 
-        <Label>
+        <Control>
           <span>Оцініть якість сервісу магазину за 5-ти бальною шкалою</span>
-          <input required type="radio" name="score" value={1} /> 1
-          <input required type="radio" name="score" value={2} /> 2
-          <input required type="radio" name="score" value={3} /> 3
-          <input required type="radio" name="score" value={4} /> 4
-          <input required type="radio" name="score" value={5} /> 5
-        </Label>
+          <Rating onChange={this.handleRatingChange} />
+          {/* <label>
+            <input required type="radio" name="score" value={1} />
+          </label>
+          <label>
+            <input required type="radio" name="score" value={2} />
+          </label>
+          <label>
+            <input required type="radio" name="score" value={3} />
+          </label>
+          <label>
+            <input required type="radio" name="score" value={4} />
+          </label>
+          <label>
+            <input required type="radio" name="score" value={5} />
+          </label> */}
+        </Control>
 
-        <Label>
+        <Control>
           <span>Додайте коментар, якщо бажаєте</span>
           <textarea name="comment" placeholder="Введіть текст"></textarea>
-        </Label>
+        </Control>
 
         <Button type="submit">Відправити</Button>
       </form>

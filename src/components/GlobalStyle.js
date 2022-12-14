@@ -10,14 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Arsenal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    @media screen and (min-width: 768px) {
-      font-size: 21.5px;
-    }
-
-    @media screen and (min-width: 1024px) {
-      font-size: 22px;
-    }
   }
 
   ::placeholder {
@@ -26,6 +18,11 @@ export const GlobalStyle = createGlobalStyle`
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  svg {
+    transition: 200ms ease;
+    transition-property: color;
   }
 
   input:not([type="radio"]):not([type="checkbox"]),

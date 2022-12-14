@@ -1,21 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 375px;
-  padding: 30px 20px;
-  background-color: #ffc72c;
-  text-align: center;
-
-  @media screen and (min-width: 768px) {
-    max-width: 900px;
-    padding: 58px 30px;
-  }
-
-  @media screen and (min-width: 1024px) {
-    padding: 58px 35px;
-    width: 900px;
-  }
-
   > svg {
     @media screen and (min-width: 768px) {
       width: 333px;
