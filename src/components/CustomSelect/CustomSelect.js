@@ -1,5 +1,10 @@
 import React from 'react';
-import './CustomSelect.css';
+import {
+  Container,
+  SelectedText,
+  OptionItem,
+  OptionsList,
+} from './CustomSelect.styled';
 
 class CustomSelect extends React.Component {
   constructor(props) {
@@ -11,7 +16,6 @@ class CustomSelect extends React.Component {
     this.state = {
       defaultSelectText: '',
       showOptionList: false,
-      optionsList: [],
     };
   }
 
@@ -33,7 +37,7 @@ class CustomSelect extends React.Component {
   // select text and list area
   handleClickOutside = e => {
     if (
-      !e.target.classList.contains('custom-select-option') &&
+      !e.target.hasAttribute('data-name') &&
       !e.target.classList.contains('selected-text')
     ) {
       this.setState({
@@ -68,30 +72,29 @@ class CustomSelect extends React.Component {
     const { optionsList } = this.props;
     const { showOptionList, defaultSelectText } = this.state;
     return (
-      <div className="custom-select-container">
-        <div
+      <Container>
+        <SelectedText
           className={showOptionList ? 'selected-text active' : 'selected-text'}
           onClick={this.handleListDisplay}
         >
           {defaultSelectText}
-        </div>
+        </SelectedText>
         {showOptionList && (
-          <ul className="select-options">
+          <OptionsList>
             {optionsList.map(option => {
               return (
-                <li
-                  className="custom-select-option"
-                  data-name={option.name}
+                <OptionItem
                   key={option.id}
+                  data-name={option.name}
                   onClick={this.handleOptionClick}
                 >
                   {option.name}
-                </li>
+                </OptionItem>
               );
             })}
-          </ul>
+          </OptionsList>
         )}
-      </div>
+      </Container>
     );
   }
 }
