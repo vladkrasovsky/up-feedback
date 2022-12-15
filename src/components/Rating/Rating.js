@@ -44,7 +44,7 @@ class Rating extends Component {
             return (
               <span
                 key={star}
-                style={{ cursor: 'pointer', padding: '0 8px' }}
+                style={{ cursor: 'pointer', padding: '0 6px' }}
                 onClick={() => {
                   this.changeRating(star);
                 }}

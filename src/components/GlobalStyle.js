@@ -27,9 +27,11 @@ export const GlobalStyle = createGlobalStyle`
 
   input:not([type="radio"]):not([type="checkbox"]),
   select,
-  textarea {
+  textarea,
+  .custom-select-container {
     width: 256px;
     max-width: 100%;
+    background-color: #ffffff;
     border: 1px solid #382E2D;
     font-size: 14px;
 

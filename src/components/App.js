@@ -18,7 +18,6 @@ class App extends Component {
   };
 
   addFeedback = feedback => {
-    console.log(feedback);
     this.setState({ status: 'pending' });
 
     const options = {
@@ -29,16 +28,17 @@ class App extends Component {
       },
     };
 
-    fetch('https://fb.umanpivo.ua/api/feedback/', options)
-      .then(res => res.json)
-      .then(data => {
-        // console.log(data);
-        this.setState({ status: 'resolved' });
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ status: 'rejected' });
-      });
+    setTimeout(() => {
+      fetch('https://fb.umanpivo.ua/api/feedback/', options)
+        .then(res => res.json)
+        .then(data => {
+          this.setState({ status: 'resolved' });
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({ status: 'rejected' });
+        });
+    }, 1000);
   };
 
   showFeedback() {
