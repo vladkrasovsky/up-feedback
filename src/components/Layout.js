@@ -13,6 +13,7 @@ export const Layout = styled.div`
 
   background-color: #382e2d;
   background-image: url(${layoutBgMobile});
+  background-attachment: fixed;
   background-size: cover;
 
   overflow: hidden;
