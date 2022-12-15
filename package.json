@@ -21,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}",
-    "deploy": "scp -r build/* umanpi00:~/umanpivo.ua/fb/"
+    "deploy": "npm run build && scp -r build/* umanpi00:~/umanpivo.ua/fb/"
   },
   "eslintConfig": {
     "extends": [
