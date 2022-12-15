@@ -13,10 +13,13 @@ export const Layout = styled.div`
 
   background-color: #382e2d;
   background-image: url(${layoutBgMobile});
-  background-attachment: fixed;
   background-size: cover;
 
   overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    background-attachment: fixed;
+  }
 
   /* Перевизначаємо шлях до 2x зображення,
     якщо щільність екрану мінімум 2 */
