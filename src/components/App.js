@@ -30,7 +30,12 @@ class App extends Component {
 
     setTimeout(() => {
       fetch('https://fb.umanpivo.ua/api/feedback/', options)
-        .then(res => res.json)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(res.status);
+          }
+          return res.json;
+        })
         .then(data => {
           this.setState({ status: 'resolved' });
         })
