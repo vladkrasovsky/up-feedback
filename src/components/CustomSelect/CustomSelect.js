@@ -28,6 +28,13 @@ class CustomSelect extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const { defaultText } = this.props;
+    if (prevProps.defaultText !== defaultText) {
+      this.setState({ defaultSelectText: defaultText });
+    }
+  }
+
   componentWillUnmount() {
     // Remove the event listner on component unmounting
     document.removeEventListener('mousedown', this.handleClickOutside);

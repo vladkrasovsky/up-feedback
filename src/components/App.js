@@ -40,7 +40,7 @@ class App extends Component {
           this.setState({ status: 'resolved' });
         })
         .catch(error => {
-          console.log(error);
+          console.error(error.message);
           this.setState({ status: 'rejected' });
         });
     }, 1000);

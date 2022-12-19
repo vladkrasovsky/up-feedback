@@ -5,12 +5,31 @@ import { Control } from './Form.styled';
 import shops from 'data/shops.json';
 import Rating from 'components/Rating';
 import CustomSelect from 'components/CustomSelect';
+import storageAPI from 'helpers/storage';
+
+const SAVED_FEEDBACK_KEY = 'saved-feedback';
+const DEFAULT_STATE = {
+  shop: 'Оберіть магазин',
+  score: 0,
+  comment: '',
+};
 
 class FeedbackForm extends Component {
-  state = {
-    shop: '',
-    score: 0,
-  };
+  state = { ...DEFAULT_STATE };
+
+  componentDidMount() {
+    const savedFeedback = storageAPI.load(SAVED_FEEDBACK_KEY);
+    if (savedFeedback) {
+      const { shop, score, comment } = savedFeedback;
+      this.setState({ shop, score, comment });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state !== prevState) {
+      storageAPI.save(SAVED_FEEDBACK_KEY, this.state);
+    }
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -35,7 +54,12 @@ class FeedbackForm extends Component {
     data.shop = shop;
     data.score = score;
 
-    this.props.onSubmit(data);
+    const isSuccess = this.props.onSubmit(data);
+
+    if (isSuccess) {
+      storageAPI.remove(SAVED_FEEDBACK_KEY);
+      this.setState({ ...DEFAULT_STATE });
+    }
   };
 
   handleRatingChange = score => {
@@ -46,6 +70,10 @@ class FeedbackForm extends Component {
     this.setState({ shop });
   };
 
+  handleCommentChange = e => {
+    this.setState({ comment: e.target.value });
+  };
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -53,19 +81,27 @@ class FeedbackForm extends Component {
           <span>Оберіть фірмовий магазин, який бажаєте оцінити</span>
           <CustomSelect
             onChange={this.handleShopChange}
-            defaultText="Оберіть магазин"
+            defaultText={this.state.shop}
             optionsList={shops}
           />
         </Control>
 
         <Control>
           <span>Оцініть якість сервісу магазину за 5-ти бальною шкалою</span>
-          <Rating onChange={this.handleRatingChange} />
+          <Rating
+            onChange={this.handleRatingChange}
+            defaultRating={this.state.score}
+          />
         </Control>
 
         <Control>
           <span>Додайте коментар, якщо бажаєте</span>
-          <textarea name="comment" placeholder="Введіть текст"></textarea>
+          <textarea
+            name="comment"
+            placeholder="Введіть текст"
+            value={this.state.comment}
+            onChange={this.handleCommentChange}
+          ></textarea>
         </Control>
 
         <Button type="submit">Відправити</Button>

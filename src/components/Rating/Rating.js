@@ -20,6 +20,13 @@ class Rating extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { defaultRating } = this.props;
+    if (prevProps.defaultRating !== defaultRating) {
+      this.setState({ rating: defaultRating });
+    }
+  }
+
   changeRating(newRating) {
     this.setState({
       rating: newRating,
