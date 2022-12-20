@@ -31,7 +31,7 @@ class FeedbackForm extends Component {
     }
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     const form = e.currentTarget;
     const { shop, score } = this.state;
@@ -54,7 +54,7 @@ class FeedbackForm extends Component {
     data.shop = shop;
     data.score = score;
 
-    const isSuccess = this.props.onSubmit(data);
+    const isSuccess = await this.props.onSubmit(data);
 
     if (isSuccess) {
       storageAPI.remove(SAVED_FEEDBACK_KEY);

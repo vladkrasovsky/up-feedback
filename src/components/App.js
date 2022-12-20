@@ -17,7 +17,7 @@ class App extends Component {
     this.setState({ status: 'idle' });
   };
 
-  addFeedback = feedback => {
+  addFeedback = async feedback => {
     this.setState({ status: 'pending' });
 
     const options = {
@@ -28,22 +28,20 @@ class App extends Component {
       },
     };
 
-    setTimeout(() => {
-      fetch('https://fb.umanpivo.ua/api/feedback/', options)
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(res.status);
-          }
-          return res.json;
-        })
-        .then(data => {
-          this.setState({ status: 'resolved' });
-        })
-        .catch(error => {
-          console.error(error.message);
-          this.setState({ status: 'rejected' });
-        });
-    }, 1000);
+    try {
+      // const res = await fetch('https://fb.umanpivo.ua/api/feedback/', options);
+      const res = await fetch('https://feedback.local/api/feedback/', options);
+
+      if (!res.ok) {
+        throw new Error(res.status);
+      }
+
+      this.setState({ status: 'resolved' });
+      return true;
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ status: 'rejected' });
+    }
   };
 
   showFeedback() {
